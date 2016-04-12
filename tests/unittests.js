@@ -17,14 +17,7 @@ describe('Unit tests for the Bill class',function(){
 		test.assert(mybill._reference === 'reference');
 		test.assert(mybill.lines.length === 0);				
 	});
-	
-	/*it('Testing the CalcTotal function on a Bill object',function(){
-		var mybill = new Bill(2,'reference');
-		mybill._subtotal = 100;
-		mybill._discount = 10;
-		test.assert (mybill.CalcTotal() === 90);
-		test.assert (mybill._total === 90);
-	});*/				
+				
 });
 
 describe('Unit tests for the Client class',function(){
@@ -32,7 +25,7 @@ describe('Unit tests for the Client class',function(){
 		var myClient = new Client('name', 'usertype', '1981/01/05');
 		test.assert(myClient != null);
 		test.assert(myClient._name === 'name');
-		test.assert(myClient._usertype === 'usertype');		
+		test.assert(myClient.usertype === 'usertype');		
 		test.assert(myClient._startdate.getMonth() === 0);
 		test.assert(myClient._startdate.getDate() === 5);
 		test.assert(myClient._startdate.getFullYear() === 1981);
@@ -66,12 +59,50 @@ describe('Unit tests for the BillEntry class',function(){
 	
 });
 
-
-
 describe('Unit tests for the Discount classes',function(){
 	it('Create a Discount object',function(){
-		var myDiscount = new Discount.EmployeeDiscount('Employee Discount', '%', 30);
+		var myDiscount = new Discount.CustomerTypeDiscount('Employee Discount', '%', 30,'employee');
 		test.assert(myDiscount != null);
-	});			
+		test.assert(myDiscount._name === 'Employee Discount');
+		test.assert(myDiscount._discType === '%');
+		test.assert(myDiscount._val === 30);
+		test.assert(myDiscount._customerType === 'employee');
+	});		
+	
+	it('Test Customer Type Discount',function(){
+		var myDiscount = new Discount.CustomerTypeDiscount('Employee Discount', '%', 30,'employee');
+		var myBill = new Bill(1,'reference');
+		myBill.SetClient( new Client('Test Customer 1', 'employee', '2016/01/01') );
+		myBill.lines.push( new BillEntry(1,0,'Line item 1','groceries',100) );
+		myBill.lines.push( new BillEntry(2,1,'Line item 2','booze',1000) );
+		myBill.lines.push( new BillEntry(3,2,'Line item 3','airtime',50) );
+		myBill.CalcTotal();
+		var discountAmnt = myDiscount.EvalEffect(myBill); 		
+		test.assert(discountAmnt === 345);
+	});		
+	
+	it('Test Customer Loalty Discount',function(){
+		var myDiscount = new Discount.CustomerLoyaltyDiscount('Loyalty Discount', '%', 5,2);
+		var myBill = new Bill(1,'reference');
+		myBill.SetClient( new Client('Test Customer 1', 'employee', '2013/01/01') );
+		myBill.lines.push( new BillEntry(1,0,'Line item 1','groceries',100) );
+		myBill.lines.push( new BillEntry(2,1,'Line item 2','booze',1000) );
+		myBill.lines.push( new BillEntry(3,2,'Line item 3','airtime',50) );
+		myBill.CalcTotal();		
+		var discountAmnt = myDiscount.EvalEffect(myBill);			
+		test.assert(discountAmnt === 57.5);
+	});
+	
+	it('Test Bulk Discount',function(){
+		var myDiscount = new Discount.BulkDiscount('Bulkd Discount', '$', 5,100);
+		var myBill = new Bill(1,'reference');
+		myBill.SetClient( new Client('Test Customer 1', 'employee', '2013/01/01') );
+		myBill.lines.push( new BillEntry(1,0,'Line item 1','groceries',100) );
+		myBill.lines.push( new BillEntry(2,1,'Line item 2','booze',1000) );
+		myBill.lines.push( new BillEntry(3,2,'Line item 3','airtime',50) );
+		myBill.CalcTotal();		
+		var discountAmnt = myDiscount.EvalEffect(myBill);	
+		test.assert(discountAmnt === 55);
+	});
 	
 });

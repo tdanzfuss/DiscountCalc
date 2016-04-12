@@ -2,14 +2,18 @@ var moment = require('moment');
 
 function Client (name, usertype, startdate)
 {
-  "use strict"   
+  "use strict"  
+  // private variables 
   this._name = name;
-  this._usertype = usertype;
+  
   var ts = Date.parse(startdate);
   if (!isNaN(ts))
     this._startdate = new Date(ts);
   else
     this._startdate = new Date();
+    
+    // public variables
+  this.usertype = usertype;  
 }
 
 // This method calculates how long a client has been a customer.

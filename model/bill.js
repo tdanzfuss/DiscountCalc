@@ -1,12 +1,13 @@
 var Discount = require('./discount.js');
 
 // The discountMatrix is shared across all bills for this instance
-/*var DiscountMatrix = [
-  new Discount('Employee Discount', '%', 30),
-  new Discount('Affiliate Discount', '%', 10),
-  new Discount('Long Term Customer Discount', '%', 5),
-  new Discount('Dollar based Discount', '$', 5)];
-*/
+var DiscountMatrix = [
+  new Discount.CustomerTypeDiscount('Employee Discount', '%', 30,'employee')
+  ,new Discount.CustomerTypeDiscount('Affiliate Discount', '%', 10,'affiliate')
+  // ,new Discount('Long Term Customer Discount', '%', 5)
+  // ,new Discount('Dollar based Discount', '$', 5)
+  ];
+
 
 function Bill (id,reference)
 {
@@ -17,10 +18,12 @@ function Bill (id,reference)
   this._subtotal = 0;
   this._discount = 0;
   this._total = 0;
-  this._client = {};
+  
   
   // Public fields  
   this.lines = [];
+  this.client = {};
+  this.financialDate = new Date();
 }
 
 Bill.prototype.CalcDiscount = function()
@@ -48,7 +51,7 @@ Bill.prototype.CalcTotal = function()
 
 Bill.prototype.SetClient = function(client)
 {
-  this._client = client;
+  this.client = client;
 }
 
 module.exports = Bill;
