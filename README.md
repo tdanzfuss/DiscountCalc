@@ -5,6 +5,13 @@ This project is a set of classes that can be used by retail websites to calculat
 This project is built in NodeJS and express.
 For testing purposes we use UnitJS ith mocha as the test execution platform
 
+### Running the Unit tests
+mocha tests/unittests.js
+
+### Running the App
+node index.js
+Then use your favourite browser(Chrome) and navigate to http://localhost:3000
+
 ## The logic
 The client provided the following discount logic:
 > On a retail website, the following discounts apply: 
