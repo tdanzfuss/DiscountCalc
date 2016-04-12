@@ -1,0 +1,11 @@
+{
+  "name": "theotest",
+  "version": "1.0.0",
+  "description": "testing Theo's ability to human",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Theo Danzfuss",
+  "license": "ISC"
+}
