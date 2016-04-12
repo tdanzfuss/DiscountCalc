@@ -3,6 +3,8 @@ function BaseDiscount(name, discType, val)
 	this._name = name;
 	this._discType = discType;
 	this._val = val;
+	this._percExclusionlist = ['groceries'];
+	this._valExclusionlist = [];	
 }
 
 BaseDiscount.prototype.EvalEffect = function (bill)
@@ -15,7 +17,7 @@ BaseDiscount.prototype.Calc = function(bill)
 	var discountAmount = 0;
 	if (this._discType === '%')
 	{
-		discountAmount = bill._subtotal * (this._val / 100);
+		discountAmount = this.CalcPercentageBasedDiscount(bill);		
 	} 
 	else 
 	{
@@ -24,6 +26,18 @@ BaseDiscount.prototype.Calc = function(bill)
 		
 	return discountAmount;
 }
+
+BaseDiscount.prototype.CalcPercentageBasedDiscount = function (bill)
+{
+	var subtotal = 0;
+	for (var i = 0 ; i < bill.lines.length; i++)
+	{
+		if (this._percExclusionlist.indexOf(bill.lines[i].entrytype) < 0 )
+			subtotal += bill.lines[i].amount;
+	}
+	
+	return subtotal * (this._val / 100);	
+} 
 
 function CustomerTypeDiscount(name, discType, val, customerType)
 {

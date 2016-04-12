@@ -2,11 +2,10 @@ var Discount = require('./discount.js');
 
 // The discountMatrix is shared across all bills for this instance
 var DiscountMatrix = [
-  new Discount.CustomerTypeDiscount('Employee Discount', '%', 30,'employee')
+   new Discount.CustomerTypeDiscount('Employee Discount', '%', 30,'employee')
   ,new Discount.CustomerTypeDiscount('Affiliate Discount', '%', 10,'affiliate')
-  // ,new Discount('Long Term Customer Discount', '%', 5)
-  // ,new Discount('Dollar based Discount', '$', 5)
-  ];
+  ,new Discount.CustomerLoyaltyDiscount('Loyalty Discount', '%', 5,2)
+  ,new Discount.BulkDiscount('Bulkd Discount', '$', 5,100)];
 
 
 function Bill (id,reference)
@@ -29,11 +28,23 @@ function Bill (id,reference)
 Bill.prototype.CalcDiscount = function()
 {
   this._discount = 0;
-  // employee discount
-  // affiliate discount
-  // long term discount
-  // $100 discount
+  var percAppliedAmount = 0;
+  var normAppliedAmount = 0;
+  for (var i=0;i< DiscountMatrix.length;i++)
+  {
+    var discountAmount =  DiscountMatrix[i].EvalEffect(this);
+    // For a percentage discount, we explicitly apply only 1 discount. Namely the biggest discount 
+    if (DiscountMatrix[i]._discType === '%')
+    {
+      percAppliedAmount =  (discountAmount > percAppliedAmount) ? discountAmount : percAppliedAmount;
+    } 
+    else
+      normAppliedAmount += discountAmount;      
+  }
   
+  this._discount = percAppliedAmount + normAppliedAmount;
+   
+  return  this._discount;
 }
 
 Bill.prototype.CalcTotal = function()
