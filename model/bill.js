@@ -47,13 +47,21 @@ Bill.prototype.CalcDiscount = function()
   return  this._discount;
 }
 
-Bill.prototype.CalcTotal = function()
+Bill.prototype.CalcSubTotal = function()
 {
   this._subtotal = 0;
     
   for(var i=0;i< this.lines.length; i++){
       this._subtotal += this.lines[i].amount;
-  }
+  }    
+   
+  return this._subtotal;
+}
+
+Bill.prototype.CalcTotal = function()
+{
+  this.CalcSubTotal();
+  this.CalcDiscount();
   
   this._total = this._subtotal - this._discount;
    

@@ -54,7 +54,7 @@ describe('Unit tests for the BillEntry class',function(){
 		myBill.lines.push( new BillEntry(2,1,'Line item 2','booze',1000) );
 		myBill.lines.push( new BillEntry(3,2,'Line item 3','airtime',50) );
 		
-		test.assert(myBill.CalcTotal() ===1150 );					
+		test.assert(myBill.CalcSubTotal() === 1150 );					
 	});	
 	
 });

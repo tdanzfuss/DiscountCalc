@@ -22,7 +22,7 @@ app.listen(3000, function () {
 		//myBill.lines.push( new BillEntry(1,0,'Line item 1','booze',100) );
 		//myBill.lines.push( new BillEntry(2,1,'Line item 2','booze',1000) );
 		myBill.lines.push( new BillEntry(3,2,'Line item 3','groceries',50) );
-		myBill.CalcTotal();
+		myBill.CalcSubTotal();
 					
 		var discountAmnt = myBill.CalcDiscount();;
 		console.log(discountAmnt);
