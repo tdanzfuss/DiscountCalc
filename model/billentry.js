@@ -1,3 +1,8 @@
+/* 
+* CLASS NAME: BillEntry
+* CLASS DESCRIPTION: The BillEntry class which contains the line items found on a Bill
+*/
+
 function BillEntry (id,seq,description,entrytype,amount)
 {
   "use strict"

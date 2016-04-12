@@ -5,6 +5,7 @@ var BillEntry = require('../model/billentry.js');
 var Client = require('../model/client.js');
 var Discount = require('../model/discount.js');
 
+// Test basic funcionality for the Bill Class
 describe('Unit tests for the Bill class',function(){
 	
 	it('Create a new instance of a Bill and ensure correct init in Constructor',function(){
@@ -20,6 +21,7 @@ describe('Unit tests for the Bill class',function(){
 				
 });
 
+// Test basic funcionality for the Client Class
 describe('Unit tests for the Client class',function(){
 	it('Create a client object',function(){
 		var myClient = new Client('name', 'usertype', '1981/01/05');
@@ -40,6 +42,7 @@ describe('Unit tests for the Client class',function(){
 	
 });
 
+// Test basic funcionality for the BillEntry Class
 describe('Unit tests for the BillEntry class',function(){
 	it('Create a BillEntry object',function(){
 		var myEntry = new BillEntry('id,seq,description,entrytype,amount');
@@ -59,6 +62,7 @@ describe('Unit tests for the BillEntry class',function(){
 	
 });
 
+// Test basic funcionality for the Discount Class
 describe('Unit tests for the Discount classes',function(){
 	it('Create a Discount object',function(){
 		var myDiscount = new Discount.CustomerTypeDiscount('Employee Discount', '%', 30,'employee');

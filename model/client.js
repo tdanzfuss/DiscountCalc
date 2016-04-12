@@ -1,3 +1,7 @@
+/* 
+* CLASS NAME: Client
+* CLASS DESCRIPTION: Contains Client details thats contained on a Bill
+*/
 var moment = require('moment');
 
 function Client (name, usertype, startdate)

@@ -1,6 +1,11 @@
+/* 
+* CLASS NAME: Bill
+* CLASS DESCRIPTION: The main Bill class which contains customer details and bill lines
+*/
 var Discount = require('./discount.js');
 
 // The discountMatrix is shared across all bills for this instance
+// To add a new Discount, simply add it to the DiscountMatrix list
 var DiscountMatrix = [
    new Discount.CustomerTypeDiscount('Employee Discount', '%', 30,'employee')
   ,new Discount.CustomerTypeDiscount('Affiliate Discount', '%', 10,'affiliate')
@@ -25,6 +30,9 @@ function Bill (id,reference)
   this.financialDate = new Date();
 }
 
+// Method iterates through the DiscountMatrix and computes discount for each discount type
+// Then for percentage discount only the highest discount is applied.
+// For other discounts, all discounts are just summed together
 Bill.prototype.CalcDiscount = function()
 {
   this._discount = 0;
@@ -47,6 +55,7 @@ Bill.prototype.CalcDiscount = function()
   return  this._discount;
 }
 
+// Iterates through the line items and calculate sub total
 Bill.prototype.CalcSubTotal = function()
 {
   this._subtotal = 0;
@@ -58,6 +67,7 @@ Bill.prototype.CalcSubTotal = function()
   return this._subtotal;
 }
 
+// Calculates the SubTotal, Discount and then Total
 Bill.prototype.CalcTotal = function()
 {
   this.CalcSubTotal();
@@ -68,6 +78,7 @@ Bill.prototype.CalcTotal = function()
   return this._total;
 }
 
+// Change the Client for this bill
 Bill.prototype.SetClient = function(client)
 {
   this.client = client;
