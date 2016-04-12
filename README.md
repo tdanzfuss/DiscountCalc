@@ -3,7 +3,7 @@ This project is a set of classes that can be used by retail websites to calculat
 
 ## Getting Started
 This project is built in NodeJS and express.
-For testing purposes we use UnitJS ith mocha as the test execution platform
+For testing purposes we use UnitJS with mocha as the test execution platform
 
 ### Running the Unit tests
 mocha tests/unittests.js
