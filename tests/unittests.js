@@ -29,6 +29,18 @@ describe('Unit tests for the Client class',function(){
 	it('Create a client object',function(){
 		var myClient = new Client('name', 'usertype', '1981/01/05');
 		test.assert(myClient != null);
+		test.assert(myClient._name === 'name');
+		test.assert(myClient._usertype === 'usertype');		
+		test.assert(myClient._startdate.getMonth() === 0);
+		test.assert(myClient._startdate.getDate() === 5);
+		test.assert(myClient._startdate.getFullYear() === 1981);
+	});	
+	
+	it('Test duration method',function(){
+		var myClient = new Client('name', 'usertype', '1981/01/05');
+		var billDate = new Date(2016,4,12);
+		var yearDiff = myClient.Duration(billDate);
+		test.dump (yearDiff);
 	});	
 	
 });
