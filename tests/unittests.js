@@ -1,6 +1,7 @@
 // load Unit.js module
 var test = require('unit.js');
 var Bill = require('../model/bill.js');
+var Client = require('../model/client.js');
 
 describe('Unit tests for the Bill class',function(){
 	
@@ -21,5 +22,13 @@ describe('Unit tests for the Bill class',function(){
 		mybill._discount = 10;
 		test.assert (mybill.CalcTotal() === 90);
 		test.assert (mybill._total === 90);
-	});		
+	});				
+});
+
+describe('Unit tests for the Client class',function(){
+	it('Create a client object',function(){
+		var myClient = new Client('name', 'usertype', '1981/01/05');
+		test.assert(myClient != null);
+	});	
+	
 });
